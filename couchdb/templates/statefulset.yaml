@@ -99,6 +99,10 @@ spec:
                   key: erlangCookie
             - name: ERL_FLAGS
               value: "{{ range $k, $v := .Values.erlangFlags }} -{{ $k }} {{ $v }} {{ end }}"
+            - name: NODE_NETBIOS_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
             - name: NODENAME
               value: "$(NODE_NETBIOS_NAME).{{ template "couchdb.fullname" $ }}.{{ $.Release.Namespace }}.svc.{{ $.Values.dns.clusterDomainSuffix }}
 {{- if .Values.livenessProbe.enabled }}"
