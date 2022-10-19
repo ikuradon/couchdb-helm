@@ -99,6 +99,8 @@ spec:
                   key: erlangCookie
             - name: ERL_FLAGS
               value: "{{ range $k, $v := .Values.erlangFlags }} -{{ $k }} {{ $v }} {{ end }}"
+            - name: NODENAME
+              value: $(NODE_NETBIOS_NAME).{{ template "couchdb.fullname" $ }}.{{ $.Release.Namespace }}.svc.{{ $.Values.dns.clusterDomainSuffix }}
 {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
 {{- if .Values.couchdbConfig.chttpd.require_valid_user }}
