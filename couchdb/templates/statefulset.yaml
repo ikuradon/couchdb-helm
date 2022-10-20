@@ -86,12 +86,12 @@ spec:
                 secretKeyRef:
                   name: {{ template "couchdb.fullname" . }}
                   key: adminPassword
+{{- end }}
             - name: COUCHDB_SECRET
               valueFrom:
                 secretKeyRef:
                   name: {{ template "couchdb.fullname" . }}
                   key: cookieAuthSecret
-{{- end }}
             - name: COUCHDB_ERLANG_COOKIE
               valueFrom:
                 secretKeyRef:
@@ -104,8 +104,8 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: NODENAME
-              value: "$(NODE_NETBIOS_NAME).{{ template "couchdb.fullname" $ }}.{{ $.Release.Namespace }}.svc.{{ $.Values.dns.clusterDomainSuffix }}
-{{- if .Values.livenessProbe.enabled }}"
+              value: "$(NODE_NETBIOS_NAME).{{ template "couchdb.fullname" $ }}.{{ $.Release.Namespace }}.svc.{{ $.Values.dns.clusterDomainSuffix }}"
+{{- if .Values.livenessProbe.enabled }}
           livenessProbe:
 {{- if .Values.couchdbConfig.chttpd.require_valid_user }}
             exec:
